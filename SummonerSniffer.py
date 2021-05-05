@@ -1,7 +1,8 @@
 from LeagueStuff import ChatWindow
+import keyboard
 
-top_left_coord = 0, 0
-bottom_right_coord = 0, 0
+top_left_coord = 19, 720
+bottom_right_coord = 700, 1350
 
 # Dictionary of summoner spell cool downs
 summoner_cds = {
@@ -24,8 +25,15 @@ def main():
     :return: 0
     :rtype: int
     """
-    chat = ChatWindow(top_left_coord, bottom_right_coord)
-    print_report(chat)
+    while True:
+        keyboard.wait('/ + .')
+        chat = ChatWindow(top_left_coord, bottom_right_coord)
+        # print('\n' * 10)
+        try:
+            print("trying report")
+            print_report(chat)
+        except:
+            print("Something went weird somewhere")
     return 0
 
 
@@ -37,14 +45,18 @@ def print_report(chat):
     :return: 0
     :rtype: int
     """
+    print(chat.champions)
     for champion in chat.champions:
-        print(champion)
-        last_use = chat.champions[champion].summoner_one["last_used"]
-        up_at = second_math(last_use, summoner_cds[chat.champions[champion].summoner_one["spell"]])
-        print(chat.champions[champion].summoner_one["spell"], "up at:", up_at)
-        last_use = chat.champions[champion].summoner_two["last_used"]
-        up_at = second_math(last_use, summoner_cds[chat.champions[champion].summoner_two["spell"]])
-        print(chat.champions[champion].summoner_two["spell"], "up at:", up_at)
+        try:
+            print(champion)
+            last_use = chat.champions[champion].summoner_one["last_used"]
+            up_at = second_math(last_use, summoner_cds[chat.champions[champion].summoner_one["spell"]])
+            print(chat.champions[champion].summoner_one["spell"], "up at:", up_at)
+            last_use = chat.champions[champion].summoner_two["last_used"]
+            up_at = second_math(last_use, summoner_cds[chat.champions[champion].summoner_two["spell"]])
+            print(chat.champions[champion].summoner_two["spell"], "up at:", up_at)
+        except:
+            print("weirdness in reporting")
         print()
     return 0
 

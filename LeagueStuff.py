@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import ImageGrab, ImageOps
 import pytesseract
 import re
 
@@ -77,7 +77,10 @@ class ChatWindow:
         :rtype:
         """
         # Place holder test image
-        return Image.open("test_images/testchat5.png")
+        img =  ImageGrab.grab(bbox=(20, 720, 700, 1355))
+        ImageOps.grayscale(img)
+        return img
+
 
     def summoner_check(self):
         """
@@ -91,6 +94,7 @@ class ChatWindow:
                                       r"?P<spell>Barrier|Clarity|Cleanse|Exhaust|Flash|Ghost|Heal|Ignite|Teleport"
                                       r"|Smite)")
         for message in self.messages:
+            # print(message)
             summoner_ping = summoner_ping_re.match(message)
             if summoner_ping:
                 # If champions dict is empty add it as first entry, I think there has got to be a better way to do this
