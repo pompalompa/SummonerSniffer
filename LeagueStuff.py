@@ -56,31 +56,24 @@ class ChatWindow:
         :rtype: null
         """
         self.messages = []
-        chat_image = self.get_image(self.top_left_coord, self.bottom_right_coord)
+        chat_image = self.get_image()
         text_chat = pytesseract.image_to_string(chat_image)
         for message in text_chat.split('\n'):
             if message != '':
                 self.messages.append(message)
-        # Populate the champions dictionary with the most recent ping for their spells
         self.summoner_check()
-        # print(self.messages)
 
-    # TODO gets image of the chat text box
-    def get_image(self, top_left_coord, bottom_right_coord):
+    def get_image(self):
         """
-        TODO
-        :param top_left_coord:
-        :type top_left_coord:
-        :param bottom_right_coord:
-        :type bottom_right_coord:
-        :return:
-        :rtype:
+        Grabs an image of the ChatWindow and grayscales it
+        :return: Image at top_left_coord, bottom_right_coord
+        :rtype: ImageGrab.Grab
         """
         # Place holder test image
-        img =  ImageGrab.grab(bbox=(20, 720, 700, 1355))
+        img = ImageGrab.grab(bbox=(
+            self.top_left_coord[0], self.top_left_coord[1], self.bottom_right_coord[0], self.bottom_right_coord[1]))
         ImageOps.grayscale(img)
         return img
-
 
     def summoner_check(self):
         """

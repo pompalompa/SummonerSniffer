@@ -1,11 +1,14 @@
 from LeagueStuff import ChatWindow
 import keyboard
 
-top_left_coord = 19, 720
-bottom_right_coord = 700, 1350
+# Hard coded values, updated these yourself
+TOP_LEFT_COORD = 20, 720
+BOTTOM_RIGHT_COORD = 700, 1355
+
+REPORT_HOTKEY = '/ + .'
 
 # Dictionary of summoner spell cool downs
-summoner_cds = {
+SUMMONER_CDS = {
     "Barrier": 180,
     "Clarity": 240,
     "Cleanse": 210,
@@ -26,15 +29,14 @@ def main():
     :rtype: int
     """
     while True:
-        keyboard.wait('/ + .')
-        chat = ChatWindow(top_left_coord, bottom_right_coord)
+        keyboard.wait(REPORT_HOTKEY)
+        chat = ChatWindow(TOP_LEFT_COORD, BOTTOM_RIGHT_COORD)
         # print('\n' * 10)
         try:
-            print("trying report")
+            # print("trying report")
             print_report(chat)
-        except:
+        except KeyError:
             print("Something went weird somewhere")
-    return 0
 
 
 def print_report(chat):
@@ -42,23 +44,21 @@ def print_report(chat):
     Prints out a report to the console about when summoner spells will be up
     :param chat: A chat object
     :type chat: ChatWindow
-    :return: 0
-    :rtype: int
+    :return: null
+    :rtype: null
     """
     print(chat.champions)
     for champion in chat.champions:
         try:
             print(champion)
             last_use = chat.champions[champion].summoner_one["last_used"]
-            up_at = second_math(last_use, summoner_cds[chat.champions[champion].summoner_one["spell"]])
+            up_at = second_math(last_use, SUMMONER_CDS[chat.champions[champion].summoner_one["spell"]])
             print(chat.champions[champion].summoner_one["spell"], "up at:", up_at)
             last_use = chat.champions[champion].summoner_two["last_used"]
-            up_at = second_math(last_use, summoner_cds[chat.champions[champion].summoner_two["spell"]])
+            up_at = second_math(last_use, SUMMONER_CDS[chat.champions[champion].summoner_two["spell"]])
             print(chat.champions[champion].summoner_two["spell"], "up at:", up_at)
-        except:
-            print("weirdness in reporting")
-        print()
-    return 0
+        except KeyError:
+            print("KeyError, potential OCR issue, potentially no second summoner")
 
 
 def second_math(time, seconds_add):
