@@ -1,10 +1,12 @@
 from LeagueStuff import ChatWindow
 import keyboard
 
-# Hard coded values, updated these yourself
+# Int Tuples for chat window coordinates. Hard coded values, updated these yourself based on monitor size and chat
+# position.
 TOP_LEFT_COORD = 20, 720
 BOTTOM_RIGHT_COORD = 700, 1355
 
+# Hot key to press when you want the program to run.
 REPORT_HOTKEY = '/ + .'
 
 # Dictionary of summoner spell cool downs

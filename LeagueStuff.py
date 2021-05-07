@@ -3,7 +3,7 @@ import pytesseract
 import re
 
 # Apparently pytesseract is too dumb to find the path itself so we gotta tell it where to go
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 # A basic class to store champion name, and two dicts with summoner spell names and their last used game time
