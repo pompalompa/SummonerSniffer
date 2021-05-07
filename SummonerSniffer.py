@@ -27,8 +27,8 @@ SUMMONER_CDS = {
 def main():
     """
     Main
-    :return: 0
-    :rtype: int
+    :return: null
+    :rtype: null
     """
     while True:
         keyboard.wait(REPORT_HOTKEY)
